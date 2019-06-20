@@ -16,7 +16,7 @@ try:
                 if "Department of Environment, Land, Water and Planning" == row[5] or "Department of Economic Development, Jobs, Transport and Resources" == row[5]:
                     incident['Incident_Number'] = row[0]
                     incident['Summary'] = row[1]
-                    incident['Notes'] = row[2]
+                    #incident['Notes'] = row[2]
                     incident['STATUS'] = row[3]
                     #print(incident['STATUS'])
                     #incident['priority'] = row[4]
@@ -30,7 +30,7 @@ try:
                     incident['Resolved_Date'] = row[25]
                     #print(row[25])
                     #if row[25] is not "NULL":
-                    #    incident['Time_Spent'] = dt.datetime.fromisoformat(str(row[25])) - dt.datetime.fromisoformat(str(row[11]))
+                    #    incident['Time_Spent'] = dt.datetime(dt.datetime.fromisoformat(row[25]) - dt.datetime.fromisoformat(row[11]))
                     #    #print(incident['Time_Spent'])
                     #else:
                     #    incident['Time_Spent'] = ""
@@ -69,7 +69,7 @@ try:
                 print(f" - Error in row {i+1}: {str(e1)}")
                 print(type(row[25]))
                 print(row[25])
-                print(row[25][2])
+                print(row[25][0])
                 print(f" -> Incident Number: {incident['Incident_Number']}, Ini Date: {incident['Reported_Date']}, End Date: {incident['Resolved_Date']}")
                 raise
     csvFile.close()
