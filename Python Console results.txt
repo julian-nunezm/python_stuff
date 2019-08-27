@@ -1,0 +1,340 @@
+Beginning to analyze 1000 incidents...
+0 incidents loaded
+There are 1000 incidents read
+ 
+Starting the checking of uncommon words...
+ 
+Looking for the most common 1k words
+0 incidents notes already checked
+ - Common words: 57942
+ - Uncommon words: 60923
+ - Uncommon words percentage: 51.25%
+----------------------------------------------
+Looking for the most common 2k words
+0 incidents notes already checked
+ - Common words: 63049
+ - Uncommon words: 55816
+ - Uncommon words percentage: 46.96%
+----------------------------------------------
+Looking for the most common 5k words
+0 incidents notes already checked
+ - Common words: 70912
+ - Uncommon words: 47953
+ - Uncommon words percentage: 40.34%
+----------------------------------------------
+Looking for the most common 10k words
+0 incidents notes already checked
+ - Common words: 78298
+ - Uncommon words: 40567
+ - Uncommon words percentage: 34.13%
+----------------------------------------------
+Looking for the most common 20k words
+0 incidents notes already checked
+ - Common words: 81050
+ - Uncommon words: 37815
+ - Uncommon words percentage: 31.81%
+----------------------------------------------
+ 
+Beginning to analyze 5000 incidents...
+1000 incidents loaded
+2000 incidents loaded
+3000 incidents loaded
+4000 incidents loaded
+There are 5000 incidents read
+ 
+Starting the checking of uncommon words...
+ 
+Looking for the most common 1k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+ - Common words: 234543
+ - Uncommon words: 248994
+ - Uncommon words percentage: 51.49%
+----------------------------------------------
+Looking for the most common 2k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+ - Common words: 256107
+ - Uncommon words: 227430
+ - Uncommon words percentage: 47.03%
+----------------------------------------------
+Looking for the most common 5k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+ - Common words: 288184
+ - Uncommon words: 195353
+ - Uncommon words percentage: 40.4%
+----------------------------------------------
+Looking for the most common 10k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+ - Common words: 316437
+ - Uncommon words: 167100
+ - Uncommon words percentage: 34.56%
+----------------------------------------------
+Looking for the most common 20k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+ - Common words: 327791
+ - Uncommon words: 155746
+ - Uncommon words percentage: 32.21%
+----------------------------------------------
+ 
+Beginning to analyze 10000 incidents...
+4000 incidents loaded
+5000 incidents loaded
+6000 incidents loaded
+7000 incidents loaded
+8000 incidents loaded
+9000 incidents loaded
+There are 10000 incidents read
+ 
+Starting the checking of uncommon words...
+ 
+Looking for the most common 1k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+ - Common words: 353968
+ - Uncommon words: 379659
+ - Uncommon words percentage: 51.75%
+----------------------------------------------
+Looking for the most common 2k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+ - Common words: 386884
+ - Uncommon words: 346743
+ - Uncommon words percentage: 47.26%
+----------------------------------------------
+Looking for the most common 5k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+ - Common words: 435737
+ - Uncommon words: 297890
+ - Uncommon words percentage: 40.61%
+----------------------------------------------
+Looking for the most common 10k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+ - Common words: 477807
+ - Uncommon words: 255820
+ - Uncommon words percentage: 34.87%
+----------------------------------------------
+Looking for the most common 20k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+ - Common words: 495005
+ - Uncommon words: 238622
+ - Uncommon words percentage: 32.53%
+----------------------------------------------
+ 
+Beginning to analyze 15000 incidents...
+6000 incidents loaded
+7000 incidents loaded
+8000 incidents loaded
+9000 incidents loaded
+10000 incidents loaded
+11000 incidents loaded
+12000 incidents loaded
+13000 incidents loaded
+14000 incidents loaded
+There are 15000 incidents read
+ 
+Starting the checking of uncommon words...
+ 
+Looking for the most common 1k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+ - Common words: 537975
+ - Uncommon words: 585746
+ - Uncommon words percentage: 52.13%
+----------------------------------------------
+Looking for the most common 2k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+ - Common words: 588205
+ - Uncommon words: 535516
+ - Uncommon words percentage: 47.66%
+----------------------------------------------
+Looking for the most common 5k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+ - Common words: 663409
+ - Uncommon words: 460312
+ - Uncommon words percentage: 40.96%
+----------------------------------------------
+Looking for the most common 10k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+ - Common words: 726463
+ - Uncommon words: 397258
+ - Uncommon words percentage: 35.35%
+----------------------------------------------
+Looking for the most common 20k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+ - Common words: 752930
+ - Uncommon words: 370791
+ - Uncommon words percentage: 33.0%
+----------------------------------------------
+ 
+Beginning to analyze 20000 incidents...
+9000 incidents loaded
+10000 incidents loaded
+11000 incidents loaded
+12000 incidents loaded
+13000 incidents loaded
+14000 incidents loaded
+15000 incidents loaded
+16000 incidents loaded
+17000 incidents loaded
+18000 incidents loaded
+19000 incidents loaded
+There are 20000 incidents read
+ 
+Starting the checking of uncommon words...
+ 
+Looking for the most common 1k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+9000 incidents notes already checked
+10000 incidents notes already checked
+ - Common words: 656707
+ - Uncommon words: 710174
+ - Uncommon words percentage: 51.96%
+----------------------------------------------
+Looking for the most common 2k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+9000 incidents notes already checked
+10000 incidents notes already checked
+ - Common words: 717995
+ - Uncommon words: 648886
+ - Uncommon words percentage: 47.47%
+----------------------------------------------
+Looking for the most common 5k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+9000 incidents notes already checked
+10000 incidents notes already checked
+ - Common words: 809832
+ - Uncommon words: 557049
+ - Uncommon words percentage: 40.75%
+----------------------------------------------
+Looking for the most common 10k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+9000 incidents notes already checked
+10000 incidents notes already checked
+ - Common words: 886581
+ - Uncommon words: 480300
+ - Uncommon words percentage: 35.14%
+----------------------------------------------
+Looking for the most common 20k words
+0 incidents notes already checked
+1000 incidents notes already checked
+2000 incidents notes already checked
+3000 incidents notes already checked
+4000 incidents notes already checked
+5000 incidents notes already checked
+6000 incidents notes already checked
+7000 incidents notes already checked
+8000 incidents notes already checked
+9000 incidents notes already checked
+10000 incidents notes already checked
+ - Common words: 918835
+ - Uncommon words: 448046
+ - Uncommon words percentage: 32.78%
+----------------------------------------------
