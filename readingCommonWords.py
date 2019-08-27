@@ -96,7 +96,6 @@ try:
                     commonWordCounter = {}
                     uncommonWordCounter = {}
                     if word.lower() in mostCommonWords:
-                        commonCounter += 1
                         for cw in commonWords:
                             if word == cw["word"]:
                                 cw["counter"] += 1
@@ -105,9 +104,8 @@ try:
                             commonWordCounter["word"] = word
                             commonWordCounter["counter"] = 1
                             commonWords.append(commonWordCounter)
+                            commonCounter += 1
                     else:
-                        uncommonCounter += 1
-                        #print(word)
                         for uw in uncommonWords:
                             if word == uw["word"]:
                                 uw["counter"] += 1
@@ -116,6 +114,7 @@ try:
                             uncommonWordCounter["word"] = word
                             uncommonWordCounter["counter"] = 1
                             uncommonWords.append(uncommonWordCounter)
+                            uncommonCounter += 1
                 i += 1
                 if(i%paginationLimit==0):
                     print(f"{i} incidents notes already checked")
