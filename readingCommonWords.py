@@ -6,8 +6,8 @@ try:
     incidents = dict()
     inc = dict()
     i = 0
-    paginationLimit = 1000
-    incidentsLimit = [1000]
+    paginationLimit = 5000
+    incidentsLimit = [1000,2000,5000,10000,20000,50000,100000]
     for incLim in incidentsLimit:
         i = 0
         print(" ")
@@ -73,7 +73,7 @@ try:
         #inc['12346'] = incident
 
         commonWordsLimit = [1]
-        
+        #ToDo: Count reset and Reset as the same word
         for cWordsLimit in commonWordsLimit:
             commonWords = []
             uncommonWords = []
@@ -90,31 +90,34 @@ try:
                 notes = ""
                 #print(v["Incident_Number"])
                 notesWords = v["Notes"].split(" ")
+                #ToDo: Compare not only Summary, but also Worlog, Resolution and more! Maintain the same counters!
                 for n in notesWords:
                     existent = False
                     word = n.replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","")
                     commonWordCounter = {}
                     uncommonWordCounter = {}
-                    if word.lower() in mostCommonWords:
-                        for cw in commonWords:
-                            if word == cw["word"]:
-                                cw["counter"] += 1
-                                existent = True
-                        if not existent:
-                            commonWordCounter["word"] = word
-                            commonWordCounter["counter"] = 1
-                            commonWords.append(commonWordCounter)
-                            commonCounter += 1
-                    else:
-                        for uw in uncommonWords:
-                            if word == uw["word"]:
-                                uw["counter"] += 1
-                                existent = True
-                        if not existent:
-                            uncommonWordCounter["word"] = word
-                            uncommonWordCounter["counter"] = 1
-                            uncommonWords.append(uncommonWordCounter)
-                            uncommonCounter += 1
+                    if word != "":
+                        if word.lower() in mostCommonWords:
+                            for cw in commonWords:
+                                if word.lower() == cw["word"]:
+                                    cw["counter"] += 1
+                                    existent = True
+                            if not existent:
+                                commonWordCounter["word"] = word.lower()
+                                commonWordCounter["counter"] = 1
+                                commonWords.append(commonWordCounter)
+                                commonCounter += 1
+                        #ToDo: Count Cenitex jargon words
+                        else:
+                            for uw in uncommonWords:
+                                if word.lower() == uw["word"]:
+                                    uw["counter"] += 1
+                                    existent = True
+                            if not existent:
+                                uncommonWordCounter["word"] = word.lower()
+                                uncommonWordCounter["counter"] = 1
+                                uncommonWords.append(uncommonWordCounter)
+                                uncommonCounter += 1
                 i += 1
                 if(i%paginationLimit==0):
                     print(f"{i} incidents notes already checked")
@@ -122,6 +125,7 @@ try:
             print(f" - Uncommon words: {uncommonCounter}")
             print(f" - Uncommon words percentage: {round((uncommonCounter/(commonCounter + uncommonCounter))*100, 2)}%")
             print("----------------------------------------------")
+            #pprint(sorted(uncommonWords,key=lambda i: i["counter"], reverse = True))
     #print("Common Words")
     #pprint(commonWords)
     #print("Not Common Words")
