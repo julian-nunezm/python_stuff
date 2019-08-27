@@ -6,9 +6,10 @@ try:
     incidents = dict()
     inc = dict()
     i = 0
-    paginationLimit = 500
-    incidentsLimit = [1000,5000]
+    paginationLimit = 1000
+    incidentsLimit = [1000,5000,10000,15000,20000]
     for incLim in incidentsLimit:
+        i = 0
         print(" ")
         print("Beginning to analyze "+ str(incLim) +" incidents...")
         with open('extract.csv', 'r', encoding="utf8") as csvFile:
