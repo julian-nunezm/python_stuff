@@ -38,10 +38,9 @@ try:
                             incident['Resolution'] = row[30]
                             #incident['Resolution_Method'] = row[31]
                             incidents[row[0]] = incident
-                            #if(i%50000==0):
+                            i += 1
                             if(i%paginationLimit==0):
                                 print(f"{i} incidents loaded")
-                            i += 1
                 except Exception as e1:
                     print(f" - Error in row {i+1}: {str(e1)}")
                     print(type(row[25]))
