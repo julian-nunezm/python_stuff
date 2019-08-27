@@ -7,7 +7,7 @@ try:
     inc = dict()
     i = 0
     paginationLimit = 1000
-    incidentsLimit = [1000,5000,10000,15000,20000]
+    incidentsLimit = [1000]
     for incLim in incidentsLimit:
         i = 0
         print(" ")
@@ -72,7 +72,7 @@ try:
         #incident['Notes'] = "This is another outage at Cenitex"
         #inc['12346'] = incident
 
-        commonWordsLimit = [1,2,5,10,20]
+        commonWordsLimit = [1]
         
         for cWordsLimit in commonWordsLimit:
             commonWords = []
@@ -82,7 +82,6 @@ try:
             commonCounter = 0
             uncommonCounter = 0
             i = 0
-            
             print("Looking for the most common "+ str(cWordsLimit) +"k words")
             txtFile = open(str(cWordsLimit) + 'k.txt', 'r', encoding="utf8")
             mostCommonWords = txtFile.read().split(",")
@@ -93,7 +92,7 @@ try:
                 notesWords = v["Notes"].split(" ")
                 for n in notesWords:
                     existent = False
-                    word = n.replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","")
+                    word = n.replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","")
                     commonWordCounter = {}
                     uncommonWordCounter = {}
                     if word.lower() in mostCommonWords:
@@ -117,9 +116,9 @@ try:
                             uncommonWordCounter["word"] = word
                             uncommonWordCounter["counter"] = 1
                             uncommonWords.append(uncommonWordCounter)
+                i += 1
                 if(i%paginationLimit==0):
                     print(f"{i} incidents notes already checked")
-                i += 1
             print(f" - Common words: {commonCounter}")
             print(f" - Uncommon words: {uncommonCounter}")
             print(f" - Uncommon words percentage: {round((uncommonCounter/(commonCounter + uncommonCounter))*100, 2)}%")
