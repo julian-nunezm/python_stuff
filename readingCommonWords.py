@@ -1,13 +1,14 @@
-import csv, json, datetime as dt
+import csv, json, datetime as dt, time
 from pprint import pprint
 csv.field_size_limit(500000)
 
 try:
+    start = time.time()
     incidents = dict()
     inc = dict()
     i = 0
-    paginationLimit = 5000
-    incidentsLimit = [1000,2000,5000,10000,20000,50000,100000]
+    paginationLimit = 25000
+    incidentsLimit = [100000]   #[1000,2000,5000,10000,20000,50000,100000]
     for incLim in incidentsLimit:
         i = 0
         print(" ")
@@ -126,6 +127,8 @@ try:
             print(f" - Uncommon words percentage: {round((uncommonCounter/(commonCounter + uncommonCounter))*100, 2)}%")
             print("----------------------------------------------")
             #pprint(sorted(uncommonWords,key=lambda i: i["counter"], reverse = True))
+    elapsed = time.time() - start
+    print(f"Time: {round(elapsed,2)} seconds")
     #print("Common Words")
     #pprint(commonWords)
     #print("Not Common Words")
