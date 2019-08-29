@@ -8,7 +8,7 @@ try:
     inc = dict()
     i = 0
     paginationLimit = 1000
-    incidentsLimit = [1000,2000,5000]   #[1000,2000,5000,10000,20000,50000,100000]
+    incidentsLimit = [5000]   #[1000,2000,5000,10000,20000,50000,100000]
     for incLim in incidentsLimit:
         i = 0
         print(" ")
@@ -109,7 +109,7 @@ try:
                     commonWordCounter = {}
                     cenitexWordCounter = {}
                     uncommonWordCounter = {}
-                    if word != "" or word in ["0","1","2","3","4","5","6","7","8","9",]:
+                    if word != "" and word not in ["0","1","2","3","4","5","6","7","8","9","-"] and "http/" not in word:
                         if word.lower() in mostCommonWords:
                             for cw in commonWords:
                                 if word.lower() == cw["word"]:
@@ -152,7 +152,7 @@ try:
                     commonWordCounter = {}
                     cenitexWordCounter = {}
                     uncommonWordCounter = {}
-                    if word != "" or word in ["0","1","2","3","4","5","6","7","8","9",]:
+                    if word != "" and word not in ["0","1","2","3","4","5","6","7","8","9","-"] and "http/" not in word:
                         if word.lower() in mostCommonWords:
                             for cw in commonWords:
                                 if word.lower() == cw["word"]:
