@@ -7,8 +7,8 @@ try:
     incidents = dict()
     inc = dict()
     i = 0
-    paginationLimit = 25000
-    incidentsLimit = [100000]   #[1000,2000,5000,10000,20000,50000,100000]
+    paginationLimit = 1000
+    incidentsLimit = [1000,2000,5000]   #[1000,2000,5000,10000,20000,50000,100000]
     for incLim in incidentsLimit:
         i = 0
         print(" ")
@@ -78,26 +78,38 @@ try:
         for cWordsLimit in commonWordsLimit:
             commonWords = []
             uncommonWords = []
+            cenitexWords = []
             commonWordCounter = {}
+            cenitexWordCounter = {}
             uncommonWordCounter = {}
             commonCounter = 0
+            cenitexCounter = 0
             uncommonCounter = 0
             i = 0
             print("Looking for the most common "+ str(cWordsLimit) +"k words")
+            #Loading most common words in English
             txtFile = open(str(cWordsLimit) + 'k.txt', 'r', encoding="utf8")
             mostCommonWords = txtFile.read().split(",")
             txtFile.close()
+            #Loading Cenitex words
+            txtFile = open('cenitex.txt', 'r', encoding="utf8")
+            commonCenitexWords = txtFile.read().split(",")
+            txtFile.close()
             for k, v in incidents.items():    #inc or incidents
+                #Summary
+                #print("Analyzing incidents Summary")
                 notes = ""
                 #print(v["Incident_Number"])
-                notesWords = v["Notes"].split(" ")
+                notesWords = v["Notes"].replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","").replace("?","").split(" ")
                 #ToDo: Compare not only Summary, but also Worlog, Resolution and more! Maintain the same counters!
-                for n in notesWords:
+                for word in notesWords:
                     existent = False
-                    word = n.replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","")
+                    #ToDo: Check if it's better to replace the whole Notes instead of each word!
+                    #word = n.replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","")
                     commonWordCounter = {}
+                    cenitexWordCounter = {}
                     uncommonWordCounter = {}
-                    if word != "":
+                    if word != "" or word in ["0","1","2","3","4","5","6","7","8","9",]:
                         if word.lower() in mostCommonWords:
                             for cw in commonWords:
                                 if word.lower() == cw["word"]:
@@ -109,6 +121,59 @@ try:
                                 commonWords.append(commonWordCounter)
                                 commonCounter += 1
                         #ToDo: Count Cenitex jargon words
+                        elif word.lower() in commonCenitexWords:
+                            for cw in cenitexWords:
+                                if word.lower() == cw["word"]:
+                                    cw["counter"] += 1
+                                    existent = True
+                            if not existent:
+                                cenitexWordCounter["word"] = word.lower()
+                                cenitexWordCounter["counter"] = 1
+                                cenitexWords.append(cenitexWordCounter)
+                                cenitexCounter += 1
+                        else:
+                            for uw in uncommonWords:
+                                if word.lower() == uw["word"]:
+                                    uw["counter"] += 1
+                                    existent = True
+                            if not existent:
+                                uncommonWordCounter["word"] = word.lower()
+                                uncommonWordCounter["counter"] = 1
+                                uncommonWords.append(uncommonWordCounter)
+                                uncommonCounter += 1
+                #Resolution
+                #print("Analyzing incidents Resolution")
+                resolution = ""
+                #print(v["Incident_Number"])
+                resolutionWords = v["Resolution"].replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","").replace("?","").split(" ")
+                for r in resolutionWords:
+                    existent = False
+                    #word = r.replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","")
+                    commonWordCounter = {}
+                    cenitexWordCounter = {}
+                    uncommonWordCounter = {}
+                    if word != "" or word in ["0","1","2","3","4","5","6","7","8","9",]:
+                        if word.lower() in mostCommonWords:
+                            for cw in commonWords:
+                                if word.lower() == cw["word"]:
+                                    cw["counter"] += 1
+                                    existent = True
+                            if not existent:
+                                commonWordCounter["word"] = word.lower()
+                                commonWordCounter["counter"] = 1
+                                commonWords.append(commonWordCounter)
+                                commonCounter += 1
+                        #ToDo: Count Cenitex jargon words
+                        elif word.lower() in commonCenitexWords:
+                            for cw in cenitexWords:
+                                if word.lower() == cw["word"]:
+                                    cw["counter"] += 1
+                                    existent = True
+                            if not existent:
+                                cenitexWordCounter["word"] = word.lower()
+                                cenitexWordCounter["counter"] = 1
+                                cenitexWords.append(cenitexWordCounter)
+                                cenitexCounter += 1
                         else:
                             for uw in uncommonWords:
                                 if word.lower() == uw["word"]:
@@ -121,10 +186,12 @@ try:
                                 uncommonCounter += 1
                 i += 1
                 if(i%paginationLimit==0):
-                    print(f"{i} incidents notes already checked")
+                    print(f"{i} incidents Summary and Resolution fields already checked")
             print(f" - Common words: {commonCounter}")
+            print(f" - Cenitex words: {cenitexCounter}")
             print(f" - Uncommon words: {uncommonCounter}")
-            print(f" - Uncommon words percentage: {round((uncommonCounter/(commonCounter + uncommonCounter))*100, 2)}%")
+            print(f" - Cenitex words percentage: {round((cenitexCounter/(commonCounter + cenitexCounter + uncommonCounter))*100, 2)}%")
+            print(f" - Uncommon words percentage: {round((uncommonCounter/(commonCounter + cenitexCounter + uncommonCounter))*100, 2)}%")
             print("----------------------------------------------")
             #pprint(sorted(uncommonWords,key=lambda i: i["counter"], reverse = True))
     elapsed = time.time() - start
