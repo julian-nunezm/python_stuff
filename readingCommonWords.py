@@ -1,12 +1,13 @@
 import csv, json, datetime as dt, time
 from pprint import pprint
 csv.field_size_limit(500000)
+#https://github.com/first20hours/google-10000-english/blob/master/20k.txt
 
 commonCounter = 0
 cenitexCounter = 0
 uncommonCounter = 0
-paginationLimit = 500
-incidentsLimit = [1000]   #[1000,2000,5000,10000,20000,50000,100000]
+paginationLimit = 5000
+incidentsLimit = [10000, 20000]   #[1000,2000,5000,10000,20000,50000,100000]
 words = 0
 
 def lookFor (incident, field):
@@ -77,7 +78,6 @@ try:
     start = time.time()
     incidents = dict()
     inc = dict()
-    i = 0
     for incLim in incidentsLimit:
         i = 0
         print(" ")
@@ -89,6 +89,8 @@ try:
                 try:
                     if "Department of Environment, Land, Water and Planning" == row[5] or "Department of Economic Development, Jobs, Transport and Resources" == row[5]:
                         if i < incLim:
+                            #ToDo: Try make the analysis here to avoid more extra loops
+                            #ToDo: Check what other columns should be read!
                             incident['Incident_Number'] = row[0]
                             incident['Summary'] = row[1]
                             incident['Notes'] = row[2]
@@ -109,6 +111,8 @@ try:
                             i += 1
                             if(i%paginationLimit==0):
                                 print(f"{i} incidents loaded")
+                        else:
+                            break
                 except Exception as e1:
                     print(f" - Error in row {i+1}: {str(e1)}")
                     print(type(row[25]))
@@ -140,7 +144,7 @@ try:
         #incident['Notes'] = "This is another outage at Cenitex"
         #inc['12346'] = incident
 
-        commonWordsLimit = [2]
+        commonWordsLimit = [2,5]
         for cWordsLimit in commonWordsLimit:
             commonWords = []
             uncommonWords = []
