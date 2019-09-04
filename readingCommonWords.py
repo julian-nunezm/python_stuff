@@ -6,8 +6,8 @@ csv.field_size_limit(500000)
 commonCounter = 0
 cenitexCounter = 0
 uncommonCounter = 0
-paginationLimit = 5000
-incidentsLimit = [10000, 20000]   #[1000,2000,5000,10000,20000,50000,100000]
+paginationLimit = 10000
+incidentsLimit = [10000]   #[1000,2000,5000,10000,20000,50000,100000]
 words = 0
 
 def lookFor (incident, field):
@@ -123,28 +123,32 @@ try:
         csvFile.close()
         print(f"There are {i} incidents read")
 
-        #inc["INC000001877013"] = incidents["INC000001877013"]
-        #inc["INC000001877017"] = incidents["INC000001877017"]
-        #inc["INC000001861533"] = incidents["INC000001861533"]
-        #inc["INC000001940152"] = incidents["INC000001940152"]
-        #print(inc["INC000001861533"])
-        #print(f"Printing JSON...")
-        #print(json.dumps(inc))
+        """
+        inc["INC000001877013"] = incidents["INC000001877013"]
+        inc["INC000001877017"] = incidents["INC000001877017"]
+        inc["INC000001861533"] = incidents["INC000001861533"]
+        inc["INC000001940152"] = incidents["INC000001940152"]
+        print(inc["INC000001861533"])
+        print(f"Printing JSON...")
+        print(json.dumps(inc))
+        """
 
         print(" ")
         print("Starting the checking of uncommon words...")
         print(" ")
 
-        #incident = {}
-        #incident['Incident_Number'] = '12345'
-        #incident['Notes'] = "This is an outage, sentence"
-        #inc['12345'] = incident
-        #incident = {}
-        #incident['Incident_Number'] = '12346'
-        #incident['Notes'] = "This is another outage at Cenitex"
-        #inc['12346'] = incident
+        """
+        incident = {}
+        incident['Incident_Number'] = '12345'
+        incident['Notes'] = "This is an outage, sentence"
+        inc['12345'] = incident
+        incident = {}
+        incident['Incident_Number'] = '12346'
+        incident['Notes'] = "This is another outage at Cenitex"
+        inc['12346'] = incident
+        """
 
-        commonWordsLimit = [2,5]
+        commonWordsLimit = [2]
         for cWordsLimit in commonWordsLimit:
             commonWords = []
             uncommonWords = []
