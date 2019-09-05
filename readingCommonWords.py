@@ -1,59 +1,62 @@
 import csv, json, datetime as dt, time
 from pprint import pprint
+from tensorflow.keras.preprocessing.text import text_to_word_sequence as ttws
 csv.field_size_limit(500000)
 #https://github.com/first20hours/google-10000-english/blob/master/20k.txt
 
 commonCounter = 0
 cenitexCounter = 0
 uncommonCounter = 0
-paginationLimit = 10000
+paginationLimit = 5000
 incidentsLimit = [10000]   #[1000,2000,5000,10000,20000,50000,100000]
 words = 0
 
 def lookFor (incident, field):
-    cleanWords = incident[field].replace(":","").replace("-","").replace("'","").replace(".","").replace(",","").replace("(","").replace(")","").replace("*","").replace("=","").replace("|","").replace("&","").replace("?","").split(" ")
+    cleanWords = set(ttws(incident[field])) 
     for word in cleanWords:
         existent = False
         commonWordCounter = {}
         cenitexWordCounter = {}
         uncommonWordCounter = {}
-        if word != "" and word not in ["0","1","2","3","4","5","6","7","8","9","-", ">"] and "http/" not in word:
-            if word.lower() in mostCommonWords:
-                for cw in commonWords:
-                    if word.lower() == cw["word"]:
-                        cw["counter"] += 1
-                        existent = True
-                if not existent:
-                    commonWordCounter["word"] = word.lower()
-                    commonWordCounter["counter"] = 1
-                    commonWords.append(commonWordCounter)
-                    global commonCounter
-                    commonCounter += 1
-            #ToDo: Count Cenitex jargon words
-            elif word.lower() in commonCenitexWords:
-                for cw in cenitexWords:
-                    if word.lower() == cw["word"]:
-                        cw["counter"] += 1
-                        existent = True
-                if not existent:
-                    cenitexWordCounter["word"] = word.lower()
-                    cenitexWordCounter["counter"] = 1
-                    cenitexWords.append(cenitexWordCounter)
-                    global cenitexCounter
-                    cenitexCounter += 1
-            else:
-                for uw in uncommonWords:
-                    if word.lower() == uw["word"]:
-                        uw["counter"] += 1
-                        existent = True
-                if not existent:
-                    uncommonWordCounter["word"] = word.lower()
-                    uncommonWordCounter["counter"] = 1
-                    uncommonWords.append(uncommonWordCounter)
-                    global uncommonCounter
-                    uncommonCounter += 1
-            global words
-            words += 1
+        #ToDo: Create also a function to look for any word to show which pool the word is in.
+        #if word != "" and word not in ["0","1","2","3","4","5","6","7","8","9","-", ">"] and "http/" not in word: #Already done by keras function
+        if word.lower() in mostCommonWords:
+            for cw in commonWords:
+                if word.lower() == cw["word"]:
+                    cw["counter"] += 1
+                    existent = True
+            if not existent:
+                commonWordCounter["word"] = word.lower()
+                commonWordCounter["counter"] = 1
+                commonWords.append(commonWordCounter)
+                global commonCounter
+                commonCounter += 1
+        elif word.lower() in commonCenitexWords:
+            for cw in cenitexWords:
+                if word.lower() == cw["word"]:
+                    cw["counter"] += 1
+                    existent = True
+            if not existent:
+                cenitexWordCounter["word"] = word.lower()
+                cenitexWordCounter["counter"] = 1
+                cenitexWords.append(cenitexWordCounter)
+                global cenitexCounter
+                cenitexCounter += 1
+        else:
+            for uw in uncommonWords:
+                if word.lower() == uw["word"]:
+                    uw["counter"] += 1
+                    existent = True
+            if not existent:
+                uncommonWordCounter["word"] = word.lower()
+                uncommonWordCounter["counter"] = 1
+                uncommonWords.append(uncommonWordCounter)
+                global uncommonCounter
+                uncommonCounter += 1
+        global words
+        words += 1
+        #else:
+            #print(word)
 
 def printCommonWords():
     pprint(sorted(commonWords,key=lambda i: i["counter"], reverse = True))
