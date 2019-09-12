@@ -4,47 +4,61 @@ from tensorflow.keras.preprocessing.text import text_to_word_sequence as ttws
 csv.field_size_limit(500000)
 #https://github.com/first20hours/google-10000-english/blob/master/20k.txt
 
-commonCounter = 0
-cenitexCounter = 0
-uncommonCounter = 0
-paginationLimit = 5000
-incidentsLimit = [20000]   #[1000,2000,5000,10000,20000,50000,100000]
-words = 0
+#dataSource = "requests_data.csv"
+dataSource = "LastMonthRequests.csv"
+incidentNumberIndex = 0 #1
+summaryIndex = 1 #4
+tier1Index = 2 #9
+tier2Index = 3 #10
+tier3Index = 4 #11
+paginationLimit = 100000
+recordsLimit = [300000]
+wordsCounter = 0
+requestDict = {}
+accessDict = {}
+fileDict = {}
+lotusDict = {}
+outlookDict = {}
+emailDict = {}
+awsDict = {}
+azureDict = {}
+sqlDict = {}
 
-def filterText (incident, field):
-    cleanWords = set(ttws(incident[field])) 
+def filterText (record, field):
+    cleanWords = set(ttws(record[field]))
     for word in cleanWords:
-        existent = False
-        wordsDictCounter = {}
-        commonWordCounter = {}
-        cenitexWordCounter = {}
-        uncommonWordCounter = {}
-        #ToDo: Create also a function to look for any word to show which pool the word is in.
-        #if word != "" and word not in ["0","1","2","3","4","5","6","7","8","9","-", ">"] and "http/" not in word: #Already done by keras function
-        for w in wordsArray:
-            if word.lower() == w["word"]:
-                w["counter"] += 1
-                existent = True
-        if not existent:
-            wordsDictCounter["word"] = word.lower()
-            wordsDictCounter["counter"] = 1
-            wordsArray.append(wordsDictCounter)
-        global words
-        words += 1
+        word = word.lower()
+        if word not in mostCommonWords:
+            if word in wordsDict:
+                wordsDict[word] += 1
+            else:
+                wordsDict[word] = 1
+            global wordsCounter
+            wordsCounter += 1
         #else:
-            #print(word)
+        #    print(word)
 
-def printCommonWords():
-    pprint(sorted(commonWords,key=lambda i: i["counter"], reverse = True))
+def addToDict(dictionary, key):
+    if key in dictionary:
+        dictionary[key] += 1
+    else:
+        dictionary[key] = 1
 
-def printCenitexWords():
-    pprint(sorted(cenitexWords,key=lambda i: i["counter"], reverse = True))
+def lookForWord(word):
+    print("Word: " + word + " - Times: " + str(wordsDict.get(word)))
 
-def printUncommonWords():
-    pprint(sorted(uncommonWords,key=lambda i: i["counter"], reverse = True))
 
-def printWords():
-    pprint(sorted(wordsArray,key=lambda i: i["counter"], reverse = True))
+def printDictionary(dictionary):
+    print("Printing dictionary:")
+    pprint(sorted(dictionary.items(), key=lambda i: i[1], reverse = True))
+
+def printImportantWords():
+    lookForWord("access")
+    lookForWord("create")
+    lookForWord("change")
+    lookForWord("remove")
+    lookForWord("install")
+    lookForWord("order")
 
 def setElapsedTime (elapsed):
     if elapsed > 60:
@@ -58,113 +72,98 @@ def setElapsedTime (elapsed):
 
 try:
     start = time.time()
-    incidents = dict()
-    inc = dict()
-    for incLim in incidentsLimit:
+    records = dict()
+    reg = dict()
+    #ToDo: Exclude 90 most common words (file)
+    for lim in recordsLimit:
         i = 0
+        #requests = 0
         print(" ")
-        print("Beginning to analyze "+ str(incLim) +" requests...")
-        with open('requests_data.csv', 'r', encoding="utf8") as csvFile:
+        print("Beginning to analyze "+ str(lim) +" records...")
+        with open(dataSource, 'r', encoding="utf8") as csvFile:
             reader = csv.reader(csvFile)
             for row in reader:
-                incident = {}
+                record = {}
                 try:
-                    #print("Tier 1: " + row[9] + " - Number: " + row[1])
-                    if i < incLim:
-                        #print("Tier 1: " + row[9])
-                        if row[9] == "Request":
-                            #print("Tier 1: " + row[9] + " - Number: " + row[1])
-                            #ToDo: Try make the analysis here to avoid more extra loops
-                            #ToDo: Check what other columns should be read!
-                            incident['Incident_Number'] = row[1]
-                            incident['Summary'] = row[4]
-                            incident['Operational_Categorization_Tier 1'] = row[9]
-                            incident['Operational_Categorization_Tier 2'] = row[10]
-                            incident['Operational_Categorization_Tier 3'] = row[11]
-                            incidents[row[1]] = incident
+                    #print("Tier 1: " + row[tier1Index] + " - Number: " + row[incidentNumberIndex])
+                    if i < lim:
+                        #print("Tier 1: " + row[tier1Index])
+                        if row[tier1Index] == "Request":
+                            #print("Tier 1: " + row[tier1Index] + " - Number: " + row[incidentNumberIndex])
+                            record['Incident_Number'] = row[incidentNumberIndex]
+                            record['Summary'] = row[summaryIndex]
+                            if "request" in record['Summary'].lower():
+                                addToDict(requestDict, record['Summary'])
+                            if "access" in record['Summary'].lower():
+                                addToDict(accessDict, record['Summary'])
+                            if "file" in record['Summary'].lower() or "folder" in record['Summary'].lower():
+                                addToDict(fileDict, record['Summary'])
+                            if "lotus" in record['Summary'].lower():
+                                addToDict(lotusDict, record['Summary'])
+                            if "outlook" in record['Summary'].lower():
+                                addToDict(outlookDict, record['Summary'])
+                            if "email" in record['Summary'].lower():
+                                addToDict(emailDict, record['Summary'])
+                            if "aws" in record['Summary'].lower():
+                                addToDict(awsDict, record['Summary'])
+                            if "azure" in record['Summary'].lower():
+                                addToDict(azureDict, record['Summary'])
+                            if "sql" in record['Summary'].lower():
+                                addToDict(sqlDict, record['Summary'])
+                            record['Operational_Categorization_Tier 1'] = row[tier1Index]
+                            record['Operational_Categorization_Tier 2'] = row[tier2Index]
+                            record['Operational_Categorization_Tier 3'] = row[tier3Index]
+                            records[row[1]] = record
+                            #requests += 1
+                            #if(requests%500==0):
+                            #    print(f"{requests} requests loaded")
                         i += 1
                         if(i%paginationLimit==0):
-                            print(f"{i} requests loaded")
+                            print(f"{i} records loaded")
                     else:
                         break
                 except Exception as e1:
                     print(f" - Error in row {i+1}: {str(e1)}")
-                    #print(type(row[25]))
-                    #print(row[25])
-                    #print(row[25][0])
                     #print(f" -> Incident Number: {incident['Incident_Number']}, Ini Date: {incident['Reported_Date']}, End Date: {incident['Resolved_Date']}")
-                    print(f" -> Incident Number: {incident['Incident_Number']}")
+                    print(f" -> Incident Number: {record['Incident_Number']}")
                     raise
         csvFile.close()
-        print(f"There are {i} requests read")
-
-        """
-        inc["INC000001877013"] = incidents["INC000001877013"]
-        inc["INC000001877017"] = incidents["INC000001877017"]
-        inc["INC000001861533"] = incidents["INC000001861533"]
-        inc["INC000001940152"] = incidents["INC000001940152"]
-        print(inc["INC000001861533"])
-        print(f"Printing JSON...")
-        print(json.dumps(inc))
-        """
+        print(f"There are {i} records read")
+        #print(f"There are {requests} records read")
 
         print(" ")
-        print("Analyzing requests...")
+        print("Analyzing records...")
         print(" ")
 
-        """
-        incident = {}
-        incident['Incident_Number'] = '12345'
-        incident['Notes'] = "This is an outage, sentence"
-        inc['12345'] = incident
-        incident = {}
-        incident['Incident_Number'] = '12346'
-        incident['Notes'] = "This is another outage at Cenitex"
-        inc['12346'] = incident
-        """
-
-        commonWordsLimit = [1]
-        for cWordsLimit in commonWordsLimit:
-            wordsArray = []
-            commonWords = []
-            uncommonWords = []
-            cenitexWords = []
-            wordsDictCounter = {}
-            commonWordCounter = {}
-            cenitexWordCounter = {}
-            uncommonWordCounter = {}
-            i = 0
-            totalWords = 0
-            """print("Looking for the most common "+ str(cWordsLimit) +"k words")
-            #Loading most common words in English
-            txtFile = open(str(cWordsLimit) + 'k.txt', 'r', encoding="utf8")
-            mostCommonWords = txtFile.read().split(",")
-            txtFile.close()"""
-            """#Loading Cenitex words
-            txtFile = open('cenitex.txt', 'r', encoding="utf8")
-            commonCenitexWords = txtFile.read().split(",")
-            txtFile.close()"""
-            for k, v in incidents.items():    #inc or incidents
-                filterText(v, "Summary")
-                i += 1
-                if(i%paginationLimit==0):
-                    print(f"{i} requests fields already checked")
-            print("----------------------------------------------")
-            print("Results:")
-            print("----------------------------------------------")
-            print(f" - Total words analyzed: {words}")
-            #totalCounter = commonCounter + cenitexCounter + uncommonCounter
-            #print(f" - Common words: {commonCounter}")
-            #print(f" - Cenitex words: {cenitexCounter}")
-            #print(f" - Uncommon words: {uncommonCounter}")
-            print(f" - Words: {wordsDictCounter}")
-            #print(f" - Common words percentage: {round((commonCounter/totalCounter)*100, 2)}%")
-            #print(f" - Cenitex words percentage: {round((cenitexCounter/totalCounter)*100, 2)}%")
-            #print(f" - Uncommon words percentage: {round((uncommonCounter/totalCounter)*100, 2)}%")
-            print("----------------------------------------------")
-            #pprint(sorted(uncommonWords,key=lambda i: i["counter"], reverse = True))
-    printWords()
+        #Loading most common words in English
+        txtFile = open('90.txt', 'r', encoding="utf8")
+        mostCommonWords = txtFile.read().split(",")
+        txtFile.close()
+        
+        wordsDict = {}
+        i = 0
+        totalWords = 0
+        for k, v in records.items():
+            filterText(v, "Summary")
+            i += 1
+            if(i%paginationLimit==0):
+                print(f"{i} records fields already checked")
+        print("----------------------------------------------")
+        print("Results:")
+        print("----------------------------------------------")
+        print(f" - Total words analyzed: {wordsCounter}")
+        print("----------------------------------------------")
+    #printWords()
     print("Time: "+setElapsedTime(time.time() - start))
     #print("Please try printCommonWords(), printCenitexWords(), or printUncommonWords if you want to see any set of words.")
+    """requestDict = {}
+    accessDict = {}
+    fileDict = {}
+    lotusDict = {}
+    outlookDict = {}
+    emailDict = {}
+    awsDict = {}
+    azureDict = {}
+    sqlDict = {}"""
 except Exception as e2:
     print(f" - Error: {str(e2)}")
