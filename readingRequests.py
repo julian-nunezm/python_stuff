@@ -4,8 +4,8 @@ from tensorflow.keras.preprocessing.text import text_to_word_sequence as ttws
 csv.field_size_limit(500000)
 #https://github.com/first20hours/google-10000-english/blob/master/20k.txt
 
-#dataSource = "requests_data.csv"
-dataSource = "LastMonthRequests.csv"
+#dataSource = "source/requests_data.csv"
+dataSource = "source/LastMonthRequests.csv"
 incidentNumberIndex = 0 #1
 summaryIndex = 1 #4
 tier1Index = 2 #9
@@ -60,6 +60,14 @@ def printImportantWords():
     lookForWord("install")
     lookForWord("order")
 
+def printTopWords(limit):
+    n = 0
+    for k, v in sorted(wordsDict.items(), key=lambda i: i[1], reverse = True):
+        print(k + "(" + str(v) + ")")
+        n += 1
+        if n > limit:
+            break
+
 def setElapsedTime (elapsed):
     if elapsed > 60:
         elapsed /= 60
@@ -74,10 +82,14 @@ try:
     start = time.time()
     records = dict()
     reg = dict()
-    #ToDo: Exclude 90 most common words (file)
     for lim in recordsLimit:
         i = 0
         #requests = 0
+        #wordsDict = {}
+        #Loading most common words in English
+        #txtFile = open('90.txt', 'r', encoding="utf8")
+        #mostCommonWords = txtFile.read().split(",")
+        #txtFile.close()
         print(" ")
         print("Beginning to analyze "+ str(lim) +" records...")
         with open(dataSource, 'r', encoding="utf8") as csvFile:
@@ -114,6 +126,7 @@ try:
                             record['Operational_Categorization_Tier 2'] = row[tier2Index]
                             record['Operational_Categorization_Tier 3'] = row[tier3Index]
                             records[row[1]] = record
+                            #filterText(record, "Summary")
                             #requests += 1
                             #if(requests%500==0):
                             #    print(f"{requests} requests loaded")
@@ -139,15 +152,15 @@ try:
         txtFile = open('90.txt', 'r', encoding="utf8")
         mostCommonWords = txtFile.read().split(",")
         txtFile.close()
-        
+        #Validate why is there a difference between having the filterText here or before
         wordsDict = {}
         i = 0
-        totalWords = 0
         for k, v in records.items():
             filterText(v, "Summary")
             i += 1
             if(i%paginationLimit==0):
                 print(f"{i} records fields already checked")
+        print(f"{i} records analyzed")
         print("----------------------------------------------")
         print("Results:")
         print("----------------------------------------------")
