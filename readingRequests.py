@@ -125,7 +125,7 @@ try:
                             record['Operational_Categorization_Tier 1'] = row[tier1Index]
                             record['Operational_Categorization_Tier 2'] = row[tier2Index]
                             record['Operational_Categorization_Tier 3'] = row[tier3Index]
-                            records[row[1]] = record
+                            records[row[incidentNumberIndex]] = record
                             #filterText(record, "Summary")
                             #requests += 1
                             #if(requests%500==0):
