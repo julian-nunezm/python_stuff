@@ -53,12 +53,9 @@ def printDictionary(dictionary):
     pprint(sorted(dictionary.items(), key=lambda i: i[1], reverse = True))
 
 def printImportantWords():
-    lookForWord("access")
-    lookForWord("create")
-    lookForWord("change")
-    lookForWord("remove")
-    lookForWord("install")
-    lookForWord("order")
+    importantWords = ["access","create","change","remove","install","order","subscription","restore","backup"]
+    for w in importantWords:
+        lookForWord(w)
 
 def printTopWords(limit):
     n = 0
